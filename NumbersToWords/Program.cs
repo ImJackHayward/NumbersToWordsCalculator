@@ -40,10 +40,10 @@ namespace NumbersToWords
                 {80, "Eighty"},
                 {90, "Ninety"},
                 {100, "Hundred"},
-                {1000, "Thousand"},
+                {1000, "Thousand"}
             };
 
-            Console.WriteLine(dict[1000]);
+            Console.WriteLine($"{dict[1]} {dict[100]} {dict[20]}");
 
         }
     }
