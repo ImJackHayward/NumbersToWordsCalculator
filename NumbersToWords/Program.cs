@@ -45,7 +45,7 @@ namespace NumbersToWords
 
         public static void Main(string[] args)
         {
-            var originalNumber = 1204;
+            var originalNumber = 3200;
             var number = originalNumber.ToString();
             number.Select(c => (int)char.GetNumericValue(c)).ToArray();
 
@@ -55,7 +55,7 @@ namespace NumbersToWords
                 var itemAsString = (number[i]).ToString().PadRight(numberOfZeros, '0');
                 var itemAsNumber = Int32.Parse(itemAsString);
 
-                if (originalNumber > 100 && i == number.Length - 2)
+                if (originalNumber > 100 && i == number.Length - 2 && number[number.Length - 1] != '0')
                 {
                     finalString += "and ";
                 }
@@ -93,7 +93,7 @@ namespace NumbersToWords
             }
             else if (numberOfDigits == 2)
             {
-                return ("and " + dict[number]);
+                return (dict[number]);
             }
             else if (number != 0)
             {
