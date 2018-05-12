@@ -43,7 +43,7 @@ namespace NumbersToWords
             var lettercount = 0;
             for (var i = 0; i <= 1000; i++)
             {
-                foreach (var words in convertNumberToText(i).Replace(" ", ""))
+                foreach (var words in convertNumberToText(i).Replace(" ", "").Replace("-", ""))
                 {
                     lettercount++;
                 }
@@ -69,10 +69,16 @@ namespace NumbersToWords
                     finalString += "and ";
                 }
 
-                if (itemAsNumber >= 20)
+                if (itemAsNumber >= 20 && itemAsNumber < 100 && (number[number.Length - 1] != '0'))
+                {
+                    finalString += convertNumbersToWords(itemAsNumber) + "-";
+                }
+
+                else if (itemAsNumber >= 20)
                 {
                     finalString += convertNumbersToWords(itemAsNumber) + " ";
                 }
+
                 else if (itemAsNumber >= 10)
                 {
                     var nextNumber = Int32.Parse(number[i + 1].ToString());
