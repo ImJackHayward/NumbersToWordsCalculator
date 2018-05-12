@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.ComTypes;
 
 namespace NumbersToWords
 {
@@ -44,15 +45,30 @@ namespace NumbersToWords
 
         public static void Main(string[] args)
         {
-            var number = 3112.ToString();
+            var number = 1523.ToString();
             number.Select(c => (int)char.GetNumericValue(c)).ToArray();
             for (var i = 0; i < number.Length; i++)
             {
                 var numberOfZeros = number.Length - i;
                 var itemAsString = (number[i]).ToString().PadRight(numberOfZeros, '0');
-                finalString = convertNumbersToWords(Int32.Parse(itemAsString)) + ' ';
-            }
+                var itemAsNumber = Int32.Parse(itemAsString);
 
+                if (itemAsNumber >= 20)
+                {
+                    finalString += convertNumbersToWords(itemAsNumber) + " ";
+                }
+                else if (itemAsNumber >= 10)
+                {
+                    var nextNumber = Int32.Parse(number[i + 1].ToString());
+                    finalString += convertNumbersToWords(itemAsNumber + nextNumber) + " ";
+                    i++;
+                }
+                else if (itemAsString.Length == 1)
+                {
+                    finalString += convertNumbersToWords(itemAsNumber) + " ";
+                }
+            }
+            Console.WriteLine(finalString);
         }
 
         public static String convertNumbersToWords(int number)
@@ -62,17 +78,22 @@ namespace NumbersToWords
             if (numberOfDigits > 2)
             {
 
-                var unitsOfNumber = Math.Pow(10, numberOfDigits - 1);
-                var amountOfUnits = number / unitsOfNumber;
+                var unit = Math.Pow(10, numberOfDigits - 1);
+                var amountOfUnits = number / unit;
 
-                //Testing
-                Console.WriteLine(dict[(int)amountOfUnits] + ' ' + dict[(int)unitsOfNumber]);
-                Console.WriteLine(unitsOfNumber);
-                Console.WriteLine(amountOfUnits);
+                return (dict[(int)amountOfUnits] + ' ' + dict[(int)unit]);
+
+            }
+            else if (numberOfDigits == 2)
+            {
+                return ("and " + dict[number]);
+            }
+            else if (number != 0)
+            {
+                return (dict[number]);
             }
 
             return "";
-
         }
     }
 }
