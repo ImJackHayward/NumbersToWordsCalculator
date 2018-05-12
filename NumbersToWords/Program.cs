@@ -45,13 +45,20 @@ namespace NumbersToWords
 
         public static void Main(string[] args)
         {
-            var number = 1523.ToString();
+            var originalNumber = 1204;
+            var number = originalNumber.ToString();
             number.Select(c => (int)char.GetNumericValue(c)).ToArray();
+
             for (var i = 0; i < number.Length; i++)
             {
                 var numberOfZeros = number.Length - i;
                 var itemAsString = (number[i]).ToString().PadRight(numberOfZeros, '0');
                 var itemAsNumber = Int32.Parse(itemAsString);
+
+                if (originalNumber > 100 && i == number.Length - 2)
+                {
+                    finalString += "and ";
+                }
 
                 if (itemAsNumber >= 20)
                 {
