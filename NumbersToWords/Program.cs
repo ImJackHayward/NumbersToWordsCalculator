@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices.ComTypes;
 
 namespace NumbersToWords
 {
     class Program
     {
-
-        static String finalString = "";
-
         static Dictionary<int, string> dict = new Dictionary<int, string>(){
             {1, "One"},
             {2, "Two"},
@@ -45,7 +40,21 @@ namespace NumbersToWords
 
         public static void Main(string[] args)
         {
-            var originalNumber = 1000;
+            var lettercount = 0;
+            for (var i = 0; i <= 1000; i++)
+            {
+                foreach (var words in convertNumberToText(i).Replace(" ", ""))
+                {
+                    lettercount++;
+                }
+                Console.WriteLine(convertNumberToText(i));
+            }
+            Console.WriteLine($"If the numbers are converted to words, the number of characters in the sequence 1-1000 are: {lettercount}");
+        }
+
+        public static String convertNumberToText(int originalNumber) {
+
+            String finalString = "";
             var number = originalNumber.ToString();
             number.Select(c => (int)char.GetNumericValue(c)).ToArray();
 
@@ -75,7 +84,7 @@ namespace NumbersToWords
                     finalString += convertNumbersToWords(itemAsNumber) + " ";
                 }
             }
-            Console.WriteLine(finalString);
+            return finalString;
         }
 
         public static String convertNumbersToWords(int number)
@@ -99,7 +108,6 @@ namespace NumbersToWords
             {
                 return (dict[number]);
             }
-
             return "";
         }
     }
