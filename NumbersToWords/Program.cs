@@ -45,7 +45,7 @@ namespace NumbersToWords
 
         public static void Main(string[] args)
         {
-            var originalNumber = 3200;
+            var originalNumber = 1000;
             var number = originalNumber.ToString();
             number.Select(c => (int)char.GetNumericValue(c)).ToArray();
 
@@ -55,7 +55,7 @@ namespace NumbersToWords
                 var itemAsString = (number[i]).ToString().PadRight(numberOfZeros, '0');
                 var itemAsNumber = Int32.Parse(itemAsString);
 
-                if (originalNumber > 100 && i == number.Length - 2 && number[number.Length - 1] != '0')
+                if (originalNumber > 100 && i == number.Length - 2 && (number[number.Length - 1] != '0' || number[number.Length - 2] != '0'))
                 {
                     finalString += "and ";
                 }
